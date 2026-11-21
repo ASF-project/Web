@@ -84,9 +84,12 @@
 <footer>© 2026 AppName</footer>
 
 <script>
-  // API URL is loaded from config.json (updated automatically by the server)
+  // API URL is read directly from config.json in the repo (no Pages redeploy needed)
   let API = null;
-  fetch(`config.json?t=${Date.now()}`, { cache: "no-store" })
+  fetch("https://api.github.com/repos/ASF-project/Web/contents/config.json", {
+    cache: "no-store",
+    headers: { "Accept": "application/vnd.github.raw+json" }
+  })
     .then(r => r.json()).then(d => { API = d.api || null; })
     .catch(() => {});
 
